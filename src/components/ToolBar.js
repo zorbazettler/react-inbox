@@ -5,59 +5,66 @@ import React from 'react'
 class ToolBar extends React.Component {
     constructor (props) {
         super(props);
+
+        //  Bind the button click to the appropriate context
         this.handleSelectAllClick = this.handleSelectAllClick.bind(this)
 
         this.state = {
-            "selectAll" : this.props.selectAll,
-            "messages"  : this.props.messages
+            "messages"  : this.props.messages,
+            "selectAllButtonClassName" : "fa fa-square-o"
         }
     }
 
+    //  When the select all button is clicked call back to App to change state and re render
     handleSelectAllClick = () => {
+        //  set the button style
+        var theStyle = (this.state.selectAllButtonClassName  === "fa fa-square-o" ? "fa fa-check-square-o" : "fa fa-square-o")
+        this.setState({"selectAllButtonClassName": theStyle})
+
         this.props.callbackFromParent()
     }
 
     render() {
-    return (
-        <div className="row toolbar">
-          <div className="col-md-12">
-            <p className="pull-right">
-              <span className="badge badge">2</span>
-              unread messages
-            </p>
+        return (
+            <div className="row toolbar">
+              <div className="col-md-12">
+                <p className="pull-right">
+                  <span className="badge badge">2</span>
+                  unread messages
+                </p>
 
-            <button className="btn btn-default">
-              <i className="fa fa-square-o" onClick={ this.handleSelectAllClick }></i>
-            </button>
+                <button className="btn btn-default" onClick={ this.handleSelectAllClick }>
+                  <i className={ this.state.selectAllButtonClassName }></i>
+                </button>
 
-            <button className="btn btn-default" disabled="disabled">
-              Mark As Read
-            </button>
+                <button className="btn btn-default" disabled="disabled">
+                  Mark As Read
+                </button>
 
-            <button className="btn btn-default" disabled="disabled">
-              Mark As Unread
-            </button>
+                <button className="btn btn-default" disabled="disabled">
+                  Mark As Unread
+                </button>
 
-            <select className="form-control label-select" disabled="disabled">
-              <option>Apply label</option>
-              <option value="dev">dev</option>
-              <option value="personal">personal</option>
-              <option value="gschool">gschool</option>
-            </select>
+                <select className="form-control label-select" disabled="disabled">
+                  <option>Apply label</option>
+                  <option value="dev">dev</option>
+                  <option value="personal">personal</option>
+                  <option value="gschool">gschool</option>
+                </select>
 
-            <select className="form-control label-select" disabled="disabled">
-              <option>Remove label</option>
-              <option value="dev">dev</option>
-              <option value="personal">personal</option>
-              <option value="gschool">gschool</option>
-            </select>
+                <select className="form-control label-select" disabled="disabled">
+                  <option>Remove label</option>
+                  <option value="dev">dev</option>
+                  <option value="personal">personal</option>
+                  <option value="gschool">gschool</option>
+                </select>
 
-            <button className="btn btn-default" disabled="disabled">
-              <i className="fa fa-trash-o"></i>
-            </button>
-          </div>
-        </div>
-    )
+                <button className="btn btn-default" disabled="disabled">
+                  <i className="fa fa-trash-o"></i>
+                </button>
+              </div>
+            </div>
+        )
     }
 }
 

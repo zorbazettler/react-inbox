@@ -1,23 +1,13 @@
 import React from 'react'
 import Message from '../components/Message'
 
-//const MessageList = ({messages}) => {
 class MessageList extends React.Component {
-    constructor (props) {
-        super(props);
-
-//        this.state = {
-//            "selectAll" : this.props.selectAll,
-//            "messages"  : this.props.messages
-//        }
-    }
-
 
 
     render () {
         return (
             <div>
-              { this.props.messages.map(message => <Message key={ message.id } selectAll={ this.props.selectAll } message={ message } />) }
+              { this.props.messages.map(message => <Message key={ message.id } message={ message } />) }
             </div>
         )
     }

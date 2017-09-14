@@ -14,26 +14,35 @@ class App extends Component {
 
 
         this.state = {
-            "selectAll" : false
-            //"messages"  : this.props.messages   // TODO: don't set state with props, apparently an anti-pattern
+            "messages"  : this.props.messages   // TODO: don't set state with props, apparently an anti-pattern
         }
     }
 
     //  Toggle the className when the star is clicked
     callbackSelectAll = () => {
-alert("ddd")
+        var selectedMessages = []
+
+        this.props.messages.forEach(function(message){
+          message.checked = true
+
+          selectedMessages.push(message)
+        })
+
         this.setState({
-            "selectAll" : true
+            "messages"  : selectedMessages
         })
     }
 
+    callbackMessageClick = (messsages) => {
+    //determine selected?  pass flag?  pass style?
+    }
 
 
   render() {
     return (
         <div>
-          <ToolBar callbackFromParent={ this.callbackSelectAll }/>
-          <MessageList selectAll={ this.state.selectAll } messages={ this.props.messages } />
+          <ToolBar callbackFromParent={ this.callbackSelectAll } messages={ this.state.messages } />
+          <MessageList callbackFromParent={ this.callbackMessageClick } messages={ this.state.messages } />
         </div>
     )
   }

@@ -4,33 +4,51 @@ import React from 'react'
 class Message extends React.Component {
     constructor(props) {
         //  Must call super(props)
-        super(props);
-        var theClassName
-        var isChecked
+        super(props)
 
         // bind the event handlers to the appropriate context
         this.handleDivClick  = this.handleDivClick.bind(this)
         this.handleStarClick = this.handleStarClick.bind(this)
 
+        //  Set css classNames based on message characteristics
+        this.prepareToRender()
+    }
 
-        //  If the Select All button is clicked or the checkbox is checked
-        //  the message is selected
-        if(this.props.selectAll || this.props.message.checked) {
+      prepareToRender = () => {
+        var theClassName
+        var isChecked
+
+        if ( this.props.message.checked ) {
             theClassName = "row message read selected"
             isChecked    = true
         } else {
             //  check the message property to determine if read or not and checked property for state
             theClassName = this.props.message.read ? "row message read" : "row message unread"
-            isChecked = this.props.message.checked
+            isChecked    = this.props.message.checked
         }
 
-        //  Initialize state with whether the message has been read, starred or checked
-        this.state = {
-            "readClassName"    : theClassName,
-            "starredClassName" : this.props.message.starred ? "star fa fa-star"  : "star fa fa-star-o",
-            "checked"          : isChecked
+        //  Set or initialize state with whether the message has been read, starred or checked
+        if (this.state == null) {
+            this.state = {
+                "readClassName"    : theClassName,
+                "starredClassName" : this.props.message.starred ? "star fa fa-star"  : "star fa fa-star-o",
+                "checked"          : isChecked
+            }
+        } else {
+            //  Set the state
+            this.setState({
+                "readClassName"    : theClassName,
+                "starredClassName" : this.props.message.starred ? "star fa fa-star"  : "star fa fa-star-o",
+                "checked"          : isChecked
+            })
         }
-    }
+      }
+
+      // Props changed, so prepare to render the message
+      componentWillReceiveProps(nextProps) {
+        this.prepareToRender()
+      }
+
 
     //  Toggle style (selected) when the div is clicked
     //  and check the checkbox when selected, uncheck when not de selected

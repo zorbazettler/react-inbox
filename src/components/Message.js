@@ -7,7 +7,7 @@ class Message extends React.Component {
         super(props)
 
         // bind the event handlers to the appropriate context
-        this.handleDivClick  = this.handleDivClick.bind(this)
+        this.handleMessageCheckboxClick  = this.handleMessageCheckboxClick.bind(this)
         this.handleStarClick = this.handleStarClick.bind(this)
 
         //  Set css classNames based on message characteristics
@@ -15,31 +15,22 @@ class Message extends React.Component {
     }
 
       prepareToRender = () => {
-        var theClassName
-        var isChecked
-
-        if ( this.props.message.checked ) {
-            theClassName = "row message read selected"
-            isChecked    = true
-        } else {
-            //  check the message property to determine if read or not and checked property for state
-            theClassName = this.props.message.read ? "row message read" : "row message unread"
-            isChecked    = this.props.message.checked
-        }
+        //  build the message (<tr>) className based on characteristics of the message
+        var theClassName = "row message"
+        theClassName += (this.props.message.read    ? " read"     : " unread")
+        theClassName += (this.props.message.checked ? " selected" : "")
 
         //  Set or initialize state with whether the message has been read, starred or checked
         if (this.state == null) {
             this.state = {
                 "readClassName"    : theClassName,
                 "starredClassName" : this.props.message.starred ? "star fa fa-star"  : "star fa fa-star-o",
-                "checked"          : isChecked
             }
         } else {
             //  Set the state
             this.setState({
                 "readClassName"    : theClassName,
                 "starredClassName" : this.props.message.starred ? "star fa fa-star"  : "star fa fa-star-o",
-                "checked"          : isChecked
             })
         }
       }
@@ -49,19 +40,22 @@ class Message extends React.Component {
         this.prepareToRender()
       }
 
-
     //  Toggle style (selected) when the div is clicked
     //  and check the checkbox when selected, uncheck when not de selected
-    handleDivClick = () => {
-        var read = this.state.readClassName
-        var theState = (read.includes("selected") ? read.slice(0, -9) : read + " selected")
-        var checkedState = this.state.checked ? false : true
+    handleMessageCheckboxClick = () => {
+        var read         = this.state.readClassName
+        var theState     = (read.includes("selected") ? read.slice(0, -9) : read + " selected")
+        //var checkedState = this.state.checked ? false : true
 
         //  Set the state of the existing div class name and checkbox status
         this.setState({
             'readClassName': theState,
-            'checked'      : checkedState
+            //'checked'      : checkedState
         })
+
+        //callback, pass message
+        this.props.callbackFromParent(this.props.message.id)
+
     }
 
     //  Toggle the className when the star is clicked
@@ -80,7 +74,7 @@ class Message extends React.Component {
           <div className="col-xs-1">
             <div className="row">
               <div className="col-xs-2">
-                <input type="checkbox" checked={ this.state.checked } onClick={ this.handleDivClick } />
+                <input type="checkbox" checked={ this.props.message.checked } onClick={ this.handleMessageCheckboxClick } />
               </div>
               <div className="col-xs-2">
                 <i className={ this.state.starredClassName } onClick={ this.handleStarClick }></i>

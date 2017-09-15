@@ -8,21 +8,34 @@ class ToolBar extends React.Component {
 
         //  Bind the button click to the appropriate context
         this.handleSelectAllClick = this.handleSelectAllClick.bind(this)
+        this.handleMarkAsReadClick = this.handleMarkAsReadClick.bind(this)
+        this.handleMarkAsUnreadClick = this.handleMarkAsUnreadClick.bind(this)
 
         this.state = {
             "messages"  : this.props.messages,
-            "selectAllButtonClassName" : "fa fa-square-o"
+            "selectAllButtonClassName" : this.props.buttonClassName
         }
     }
 
+    // Props changed, so prepare to render the message
+    componentWillReceiveProps(nextProps) {
+        this.setState({"selectAllButtonClassName": this.props.buttonClassName})
+    }
+
+
     //  When the select all button is clicked call back to App to change state and re render
     handleSelectAllClick = () => {
-        //  set the button style
-        var theStyle = (this.state.selectAllButtonClassName  === "fa fa-square-o" ? "fa fa-check-square-o" : "fa fa-square-o")
-        this.setState({"selectAllButtonClassName": theStyle})
-
         this.props.callbackFromParent()
     }
+
+    handleMarkAsReadClick = () => {
+        this.props.callbackFromToolBarToggleRead(true)
+    }
+
+    handleMarkAsUnreadClick = () => {
+        this.props.callbackFromToolBarToggleRead(false)
+    }
+
 
     render() {
         return (
@@ -34,14 +47,14 @@ class ToolBar extends React.Component {
                 </p>
 
                 <button className="btn btn-default" onClick={ this.handleSelectAllClick }>
-                  <i className={ this.state.selectAllButtonClassName }></i>
+                  <i className={ this.props.buttonClassName }></i>
                 </button>
 
-                <button className="btn btn-default" disabled="disabled">
+                <button className="btn btn-default" onClick={ this.handleMarkAsReadClick }>
                   Mark As Read
                 </button>
 
-                <button className="btn btn-default" disabled="disabled">
+                <button className="btn btn-default" onClick={ this.handleMarkAsUnreadClick }>
                   Mark As Unread
                 </button>
 
@@ -71,6 +84,8 @@ class ToolBar extends React.Component {
 export default ToolBar
 
 /*
+                <button className="btn btn-default" disabled="disabled">
+
 App
 <Calculator>
     handleCelsiusChange

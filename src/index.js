@@ -21,14 +21,14 @@ const string8 = 'If we connect the sensor, we can get to the HDD port through th
 //var all = false
 
 const messages = [
-  { id: 1, unread: true,  checked: false, starred: false, read: false, labels: ["dev", "personal"], subject: string1 },
-  { id: 2, unread: true,  checked: true,  starred: false, read: false, labels: [],                  subject: string2 },
-  { id: 3, unread: true,  checked: false, starred: false, read: false, labels: [ "dev"],            subject: string3 },
-  { id: 4, unread: false, checked: true,  starred: true,  read: true,  labels: [],                  subject: string4 },
-  { id: 5, unread: true,  checked: false, starred: false, read: false, labels: ["personal"],        subject: string5 },
-  { id: 6, unread: false, checked: false, starred: false, read: true,  labels: [],                  subject: string6 },
-  { id: 7, unread: false, checked: false, starred: true,  read: true,  labels: ["dev", "personal"], subject: string7 },
-  { id: 8, unread: false, checked: false, starred: false, read: true,  labels: [],                  subject: string8 }
+  { id: 1, checked: false, starred: false, read: false, labels: ["dev", "personal"], subject: string1 },
+  { id: 2, checked: true,  starred: false, read: false, labels: [],                  subject: string2 },
+  { id: 3, checked: false, starred: false, read: false, labels: [ "dev"],            subject: string3 },
+  { id: 4, checked: true,  starred: true,  read: true,  labels: [],                  subject: string4 },
+  { id: 5, checked: false, starred: false, read: false, labels: ["personal"],        subject: string5 },
+  { id: 6, checked: false, starred: false, read: true,  labels: [],                  subject: string6 },
+  { id: 7, checked: false, starred: true,  read: true,  labels: ["dev", "personal"], subject: string7 },
+  { id: 8, checked: false, starred: false, read: true,  labels: [],                  subject: string8 }
 ]
 
 //console.log(JSON.stringify(messages))

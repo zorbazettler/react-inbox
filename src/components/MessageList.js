@@ -19,7 +19,6 @@ class MessageList extends React.Component {
 
     // Props changed, so prepare to render the message
     componentWillReceiveProps(nextProps) {
-      //this.prepareToRender()
     }
 
 

@@ -7,19 +7,32 @@ class ToolBar extends React.Component {
         super(props);
 
         //  Bind the button click to the appropriate context
-        this.handleSelectAllClick = this.handleSelectAllClick.bind(this)
-        this.handleMarkAsReadClick = this.handleMarkAsReadClick.bind(this)
+        this.handleSelectAllClick    = this.handleSelectAllClick.bind(this)
+        this.handleMarkAsReadClick   = this.handleMarkAsReadClick.bind(this)
         this.handleMarkAsUnreadClick = this.handleMarkAsUnreadClick.bind(this)
+        this.handleComposeClick      = this.handleComposeClick.bind(this)
+        this.handleFormSubmit        = this.handleFormSubmit.bind(this)
 
         this.state = {
-            "messages"  : this.props.messages,
-            "selectAllButtonClassName" : this.props.buttonClassName
+            "messages"                 : this.props.messages,
+            "selectAllButtonClassName" : this.props.buttonClassName,
+            "formDisplay"              : false
         }
     }
 
     // Props changed, so prepare to render the message
     componentWillReceiveProps(nextProps) {
         this.setState({"selectAllButtonClassName": this.props.buttonClassName})
+    }
+
+    handleComposeClick = () => {
+        this.setState({"formDisplay": this.state.formDisplay ? false : true})
+    }
+
+    handleFormSubmit = (subject, body) => {
+        this.props.callbackFromToolBarAddMessage(subject, body)
+
+        this.setState({"formDisplay": false})
     }
 
     //  When the select all button is clicked call back to App to change state and re render
@@ -67,6 +80,9 @@ class ToolBar extends React.Component {
                   unread messages
                 </p>
 
+                <a className="btn btn-danger" onClick={ this.handleComposeClick }>
+                  <i className="fa fa-plus"></i>
+                </a>
                 <button className="btn btn-default" onClick={ this.handleSelectAllClick }>
                   <i className={ this.props.buttonClassName }></i>
                 </button>
@@ -97,9 +113,55 @@ class ToolBar extends React.Component {
                   <i className="fa fa-trash-o"></i>
                 </button>
               </div>
+                { this.state.formDisplay ? <TheForm callbackFromToolBarAddMessage={ this.handleFormSubmit } /> : null }
             </div>
         )
     }
+}
+
+class TheForm extends React.Component {
+    constructor (props) {
+        super(props);
+
+        //  Bind the button click to the appropriate context
+        this.handleFormSubmit        = this.handleFormSubmit.bind(this)
+    }
+
+    //  gather the subject & body then call to ToolBar
+    handleFormSubmit = (subject, body) => {
+        var subject = document.getElementById("subject").value
+        var body    = document.getElementById("body").value
+
+        this.props.callbackFromToolBarAddMessage(subject, body)
+    }
+
+render() {
+    return(
+                <form className="form-horizontal well">
+                  <div className="form-group">
+                    <div className="col-sm-8 col-sm-offset-2">
+                      <h4>Compose Message</h4>
+                    </div>
+                  </div>
+                  <div className="form-group">
+                    <label htmlFor="subject" className="col-sm-2 control-label">Subject</label>
+                    <div className="col-sm-8">
+                      <input type="text" className="form-control" id="subject" placeholder="Enter a subject" name="subject" />
+                    </div>
+                  </div>
+                  <div className="form-group">
+                    <label htmlFor="body" className="col-sm-2 control-label">Body</label>
+                    <div className="col-sm-8">
+                      <textarea name="body" id="body" className="form-control"></textarea>
+                    </div>
+                  </div>
+                  <div className="form-group">
+                    <div className="col-sm-8 col-sm-offset-2">
+                      <input type="submit" value="Send" className="btn btn-primary" onClick={ this.handleFormSubmit }/>
+                    </div>
+                  </div>
+                </form>
+    )}
 }
 
 export default ToolBar

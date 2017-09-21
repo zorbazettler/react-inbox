@@ -25,12 +25,14 @@ class Message extends React.Component {
             this.state = {
                 "readClassName"    : theClassName,
                 "starredClassName" : this.props.message.starred ? "star fa fa-star"  : "star fa fa-star-o",
+                "messageChecked"   : this.props.message.checked,
             }
         } else {
             //  Set the state
             this.setState({
                 "readClassName"    : theClassName,
                 "starredClassName" : this.props.message.starred ? "star fa fa-star"  : "star fa fa-star-o",
+                "messageChecked"   : this.props.message.checked,
             })
         }
       }
@@ -60,11 +62,25 @@ class Message extends React.Component {
 
     //  Toggle the className when the star is clicked
     handleStarClick = () => {
-        var starClassName = (this.state.starredClassName === "star fa fa-star" ? "star fa fa-star-o" : "star fa fa-star")
+        var starClassName   //= (this.state.starredClassName === "star fa fa-star" ? "star fa fa-star-o" : "star fa fa-star")
+        var isStarred
+
+        if (this.state.starredClassName === "star fa fa-star") {
+            //  was checked, now unchecked
+            starClassName = "star fa fa-star-o"
+            isStarred = false
+        } else {
+            // was unchecked, now checked
+            starClassName = "star fa fa-star"
+            isStarred = true
+        }
 
         this.setState({
             'starredClassName': starClassName
         })
+
+        //  Call back to parent
+        this.props.callbackFromMessageListHandleStarClick(this.props.message.id, isStarred)
     }
 
 
@@ -74,7 +90,7 @@ class Message extends React.Component {
           <div className="col-xs-1">
             <div className="row">
               <div className="col-xs-2">
-                <input type="checkbox" checked={ this.props.message.checked } onClick={ this.handleMessageCheckboxClick } />
+                <input type="checkbox" checked={ this.state.messageChecked } onClick={ this.handleMessageCheckboxClick } />
               </div>
               <div className="col-xs-2">
                 <i className={ this.state.starredClassName } onClick={ this.handleStarClick }></i>
@@ -94,15 +110,3 @@ export default Message
 
 //console.log(JSON.stringify(messages))
 
-/*
-const messages = [
-  { id: 1, unread: true,  checked: false, starred: false, read: false, subject: string1 },
-  { id: 2, unread: true,  checked: true,  starred: false, read: false, subject: string2 },
-  { id: 3, unread: true,  checked: false, starred: false, read: false, subject: string3 },
-  { id: 4, unread: false, checked: true,  starred: true,  read: true,  subject: string4 },
-  { id: 5, unread: true,  checked: false, starred: false, read: false, subject: string5 },
-  { id: 6, unread: false, checked: false, starred: false, read: true,  subject: string6 },
-  { id: 7, unread: false, checked: false, starred: true,  read: true,  subject: string7 },
-  { id: 8, unread: false, checked: false, starred: false, read: true,  subject: string8 }
-]
-*/

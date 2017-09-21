@@ -10,21 +10,35 @@ class App extends Component {
         super(props);
 
         // bind the callback method to the proper context TODO: research to fully understand this
-        this.callbackFromToolBarToggleSelect   = this.callbackFromToolBarToggleSelect.bind(this)
-        this.callbackFromMessageCheckClicked   = this.callbackFromMessageCheckClicked.bind(this)
-        this.callbackFromToolBarToggleRead     = this.callbackFromToolBarToggleRead.bind(this)
-        this.callbackFromTooBarApplyLabel      = this.callbackFromTooBarApplyLabel.bind(this)
-        this.callbackFromToolBarRemoveLabel    = this.callbackFromToolBarRemoveLabel.bind(this)
-        this.callbackFromToolBarDeleteMessages = this.callbackFromToolBarDeleteMessages.bind(this)
+        this.callbackFromToolBarToggleSelect        = this.callbackFromToolBarToggleSelect.bind(this)
+        this.callbackFromMessageCheckClicked        = this.callbackFromMessageCheckClicked.bind(this)
+        this.callbackFromToolBarToggleRead          = this.callbackFromToolBarToggleRead.bind(this)
+        this.callbackFromTooBarApplyLabel           = this.callbackFromTooBarApplyLabel.bind(this)
+        this.callbackFromToolBarRemoveLabel         = this.callbackFromToolBarRemoveLabel.bind(this)
+        this.callbackFromToolBarDeleteMessages      = this.callbackFromToolBarDeleteMessages.bind(this)
+        this.callbackFromMessageListHandleStarClick = this.callbackFromMessageListHandleStarClick.bind(this)
+        this.callbackFromToolBarAddMessage          = this.callbackFromToolBarAddMessage.bind(this)
 
         //  Initialize state
         this.state = {
-            "messages" : this.props.messages,   // TODO: don't set state with props, apparently an anti-pattern
+            "messages"              : [],
             "selectButtonClassName" : "fa fa-minus-square-o",
-            "unreadMessageCount"    : (this.props.messages.filter(message => message.read === false)).length
+            "unreadMessageCount"    : 0
         }
     }
 
+    //  When component mounts make REST call to get the messages
+    componentDidMount = async () => {
+        //const response = await fetch(`${process.env.REACT_APP_API_URL}/api/products`)
+        const response = await fetch("/api/messages")
+        const json = await response.json()
+
+        //  set state with the response data
+        this.setState({
+            "messages"           : json._embedded.messages,
+            "unreadMessageCount" : (json._embedded.messages.filter(message => message.read === false)).length
+        })
+    }
 
     //  The ToolBar's select/deselect all button was clicked
     callbackFromToolBarToggleSelect = () => {
@@ -95,12 +109,16 @@ class App extends Component {
     //  if readStatus ==  true then Mark As Read clicked if false Mark As Unread clicked
     callbackFromToolBarToggleRead = (readStatus) => {
         var readMessages = []
+        var messageIds   = []
 
         //  set the checked property for all selected messages
         this.state.messages.forEach(message  => {
 
+        //  If message is checked, set the read boolean and
+        //  add to the array of checked messages
         if (message.checked) {
             message.read = readStatus
+            messageIds.push(message.id)
           }
           readMessages.push(message)
         })
@@ -109,6 +127,14 @@ class App extends Component {
             "messages"           : readMessages,
             "unreadMessageCount" : (this.state.messages.filter(message => message.read === false)).length
         })
+
+        var apiMessage = {
+            "messageIds" : messageIds,
+            "command"    : "read",
+            "read"       : readStatus,
+        }
+
+        this.saveMessage(apiMessage)
     }
 
     //  Apply Label button clicked in ToolBar
@@ -126,6 +152,7 @@ class App extends Component {
     //  Add or remove label from message
     administerLabel = (theLabel, addLabel) => {
         var selectedMessages = []
+        var messageIds       = []
 
         //  Loop through the messages.  If checked then administer
         //
@@ -135,6 +162,8 @@ class App extends Component {
 
           //    Message is selected
           if (message.checked) {
+              messageIds.push(message.id)
+
               var labelIndex = message.labels.indexOf(theLabel)
 
               if (addLabel && labelIndex === -1) {
@@ -155,16 +184,26 @@ class App extends Component {
             "messages"           : selectedMessages
         })
 
+        var apiMessage = {
+            "messageIds" : messageIds,
+            "command"    : addLabel ? "addLabel" : "removeLabel",
+            "label"      : theLabel,
+        }
+
+        this.saveMessage(apiMessage)
     }
 
     callbackFromToolBarDeleteMessages = () => {
         var selectedMessages = []
+        var messageIds       = []
 
         //  set the checked property for all selected messages
         this.state.messages.forEach(message  => {
 
         if (message.checked) {
             //  remove it
+            messageIds.push(message.id)
+
           } else {
             selectedMessages.push(message)
           }
@@ -174,9 +213,69 @@ class App extends Component {
             "messages"           : selectedMessages,
             "unreadMessageCount" : (selectedMessages.filter(message => message.read === false)).length
         })
+
+        var apiMessage = {
+            "messageIds" : messageIds,
+            "command"    : "delete",
+        }
+
+        this.saveMessage(apiMessage)
     }
 
+    callbackFromMessageListHandleStarClick = (messageID, isStarred) => {
+        var apiMessage = {
+            "messageIds" : [ messageID ],
+            "command"    : "star",
+            "star"       : isStarred,
+        }
 
+        this.saveMessage(apiMessage)
+    }
+
+    saveMessage = async(message) => {
+        console.log("message = " + JSON.stringify(message, null, 4))
+
+        const response = await fetch('/api/messages', {
+          method: 'PATCH',
+          body: JSON.stringify(message),
+          headers: {
+            'Content-Type': 'application/json',
+            'Accept': 'application/json',
+          }
+        })
+
+        //  should return a 200, OK
+        const theResponse = await response.ok
+
+        console.log(theResponse ? "it worked!" : "there was a problem")
+    }
+
+    callbackFromToolBarAddMessage = async(theSubject, theBody) => {
+        console.log("wired up the form to app.js" + theSubject + theBody)
+
+        var apiMessage = {
+            "subject" : theSubject,
+            "body"    : theBody,
+        }
+
+        const response = await fetch('/api/messages/', {
+                  method: 'POST',
+                  body: JSON.stringify(apiMessage),
+                  headers: {
+                    'Content-Type': 'application/json',
+                    'Accept': 'application/json',
+                  }
+                })
+
+        const returnMessage = await response.json()
+        var theMessages = this.state.messages
+        theMessages.push(returnMessage)
+        console.log(" returnMessage = " + JSON.stringify(returnMessage, null, 4))
+        console.log("theMessages = " + JSON.stringify(theMessages, null, 4))
+        this.setState({
+            "messages" : theMessages
+        })
+    }
 
   render() {
     return (
@@ -188,11 +287,13 @@ class App extends Component {
             callbackFromTooBarApplyLabel={ this.callbackFromTooBarApplyLabel }
             callbackFromToolBarRemoveLabel={ this.callbackFromToolBarRemoveLabel }
             callbackFromToolBarDeleteMessages={ this.callbackFromToolBarDeleteMessages }
+            callbackFromToolBarAddMessage={ this.callbackFromToolBarAddMessage }
             unreadMessageCount={ this.state.unreadMessageCount }
             messages={ this.state.messages } />
 
           <MessageList
             callbackFromParent={ this.callbackFromMessageCheckClicked }
+            callbackFromMessageListHandleStarClick={ this.callbackFromMessageListHandleStarClick }
             messages={ this.state.messages } />
         </div>
     )
@@ -202,36 +303,3 @@ class App extends Component {
 export default App;
 
 
-/*
-console.log("the button class name = " + theButtonClassName
-            + "   checkedMessages.length "
-            + checkedMessages.length + "  checkedMessages.length === 0? " + (checkedMessages.length === 0)
-            + "   UNCHECKED messages.length "
-            + unCheckedMessages.length + "  UNCHECKEDMessages.length === 0? " + (unCheckedMessages.length === 0))
-
-console.log("checkedMessages = " + JSON.stringify(checkedMessages))
-console.log("UNcheckedMessages = " + JSON.stringify(unCheckedMessages))
-
-
-App
-<Calculator>
-    handleCelsiusChange
-        setState
-    handleFarenheitChange
-        setState
-
-    render()
-        <TemperatureInput onTemperatureChange=this.handleCelsiusChange>
-        <TemperatureInput onTemperatureChange=this.handleFarenheitChange>
-</Calculator>
-
-toolbar and messageList
-<TemperatureInput>
-    handleChange(e)
-        this.props.onTemperatureChange(e.target.value)
-
-    <input onChange={this.handleChange} />
-
-
-
-*/

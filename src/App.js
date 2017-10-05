@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
-//import logo from './logo.svg';
 import './App.css';
 
 import ToolBar from './components/ToolBar'
 import MessageList from './components/MessageList'
+import { connect } from 'react-redux'
 
 class App extends Component {
     constructor (props) {
@@ -27,7 +27,9 @@ class App extends Component {
         }
     }
 
+/*
     //  When component mounts make REST call to get the messages
+    //  this is now MESSAGES_RECEIVED
     componentDidMount = async () => {
         //const response = await fetch(`${process.env.REACT_APP_API_URL}/api/products`)
         const response = await fetch("/api/messages")
@@ -39,7 +41,7 @@ class App extends Component {
             "unreadMessageCount" : (json._embedded.messages.filter(message => message.read === false)).length
         })
     }
-
+*/
     //  The ToolBar's select/deselect all button was clicked
     callbackFromToolBarToggleSelect = () => {
         var checkedMessages   = this.state.messages.filter(message => message.checked === true)
@@ -294,12 +296,24 @@ class App extends Component {
           <MessageList
             callbackFromParent={ this.callbackFromMessageCheckClicked }
             callbackFromMessageListHandleStarClick={ this.callbackFromMessageListHandleStarClick }
-            messages={ this.state.messages } />
+            messages={ this.props.messages.all }
+            />
         </div>
     )
   }
 }
 
-export default App;
+const mapStateToProps = state => ({
+  messages: state.messages,
+})
+
+const mapDispatchToProps = () => ({})
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(App)
+
+//export default App;
 
 

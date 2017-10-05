@@ -5,7 +5,7 @@ class MessageList extends React.Component {
     constructor(props) {
         //  Must call super(props)
         super(props)
-
+//alert("ML Props? " + JSON.stringify(props))
         // bind the event handlers to the appropriate context
         this.handleMessageCheckboxClick  = this.handleMessageCheckboxClick.bind(this)
         this.handleStarClick             = this.handleStarClick.bind(this)

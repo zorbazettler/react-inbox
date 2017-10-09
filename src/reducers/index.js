@@ -1,11 +1,12 @@
 import { combineReducers } from 'redux'
-import { MESSAGES_RECEIVED, MESSAGE_CREATED } from '../actions'
+import { MESSAGES_RECEIVED, MESSAGE_CREATED, MESSAGE_SELECT_TOGGLED } from '../actions'
 
 function messages(state = { all: [] }, action) {
   switch (action.type) {
     case MESSAGES_RECEIVED:
-console.log(JSON.stringify(action.messages))
-    return {
+//console.log("action " + JSON.stringify(action.messages, null, 4))
+
+      return {
         ...state,
         all: action.messages
       }
@@ -17,6 +18,17 @@ console.log(JSON.stringify(action.messages))
           ...state.all,
         ]
       }
+    case MESSAGE_SELECT_TOGGLED:
+console.log("action " + JSON.stringify(action.messages, null, 4))
+
+      return {
+        ...state,
+        all: [
+          action.message,
+          ...state.all,
+        ]
+      }
+
     default:
       return state
   }

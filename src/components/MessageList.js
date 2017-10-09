@@ -1,22 +1,24 @@
 import React from 'react'
 import Message from '../components/Message'
+import { connect } from 'react-redux'
+
 
 class MessageList extends React.Component {
     constructor(props) {
         //  Must call super(props)
         super(props)
-//alert("ML Props? " + JSON.stringify(props))
+
         // bind the event handlers to the appropriate context
-        this.handleMessageCheckboxClick  = this.handleMessageCheckboxClick.bind(this)
+        //this.handleMessageCheckboxClick  = this.handleMessageCheckboxClick.bind(this)
         this.handleStarClick             = this.handleStarClick.bind(this)
     }
 
     //  This method invoked from Message component when a checkbox is clicked
     //  Pass the messageID to App who will manage propagation to source of truth
     //    and re rendering Toolbar (button style)
-    handleMessageCheckboxClick = (messageID) => {
-        this.props.callbackFromParent(messageID)
-    }
+//    handleMessageCheckboxClick = (messageID) => {
+//        this.props.callbackFromParent(messageID)
+//    }
 
     // Props changed, so prepare to render the message
     componentWillReceiveProps(nextProps) {
@@ -28,38 +30,30 @@ class MessageList extends React.Component {
 
     render () {
         return (
-            <div>
-              { this.props.messages.map(message => <Message
-                key={ message.id }
-                message={ message }
-                callbackFromParent={ this.handleMessageCheckboxClick }
-                callbackFromMessageListHandleStarClick={ this.handleStarClick } />) }
-            </div>
+              ( this.props.messages.all.length !== undefined) ? (
+                <div>
+                  {
+                    this.props.messages.all.map(message => <Message
+                    key={ message.id }
+                    message={ message }
+                    callbackFromMessageListHandleStarClick={ this.handleStarClick } />) }
+                </div>
+              ) : (<div>Loading...</div>)
         )
     }
 }
 
-export default MessageList
+//  callbackFromParent={ this.handleMessageCheckboxClick }
+
+const mapStateToProps = state => ({
+  messages: state.messages,
+})
+
+const mapDispatchToProps = () => ({})
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(MessageList)
 
 
-/*
-App
-<Calculator>
-    handleCelsiusChange
-        setState
-    handleFarenheitChange
-        setState
-
-    render()
-        <TemperatureInput onTemperatureChange=this.handleCelsiusChange>
-        <TemperatureInput onTemperatureChange=this.handleFarenheitChange>
-</Calculator>
-
-toolbar and messageList
-<TemperatureInput>
-    handleChange(e)
-        this.props.onTemperatureChange(e.target.value)
-
-    <input onChange={this.handleChange} />
-
-*/

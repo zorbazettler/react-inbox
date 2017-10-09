@@ -1,4 +1,13 @@
 import React from 'react'
+import { bindActionCreators } from 'redux'
+import { connect } from 'react-redux'
+import { messageSelectToggled } from '../actions'
+
+//  import action creator
+
+// needs to be connected component
+//  mapDispatchToProps + bindActionCreators
+//  call this.props.(function)
 
 //const Message = (props) => {
 class Message extends React.Component {
@@ -9,55 +18,34 @@ class Message extends React.Component {
         // bind the event handlers to the appropriate context
         this.handleMessageCheckboxClick  = this.handleMessageCheckboxClick.bind(this)
         this.handleStarClick = this.handleStarClick.bind(this)
-
-        //  Set css classNames based on message characteristics
-        this.prepareToRender()
     }
 
-      prepareToRender = () => {
-        //  build the message (<tr>) className based on characteristics of the message
-        var theClassName = "row message"
-        theClassName += (this.props.message.read    ? " read"     : " unread")
-        theClassName += (this.props.message.checked ? " selected" : "")
-
-        //  Set or initialize state with whether the message has been read, starred or checked
-        if (this.state == null) {
-            this.state = {
-                "readClassName"    : theClassName,
-                "starredClassName" : this.props.message.starred ? "star fa fa-star"  : "star fa fa-star-o",
-                "messageChecked"   : this.props.message.checked,
-            }
-        } else {
-            //  Set the state
-            this.setState({
-                "readClassName"    : theClassName,
-                "starredClassName" : this.props.message.starred ? "star fa fa-star"  : "star fa fa-star-o",
-                "messageChecked"   : this.props.message.checked,
-            })
-        }
-      }
-
+/*
       // Props changed, so prepare to render the message
       componentWillReceiveProps(nextProps) {
         this.prepareToRender()
       }
-
+*/
     //  Toggle style (selected) when the div is clicked
     //  and check the checkbox when selected, uncheck when not de selected
     handleMessageCheckboxClick = () => {
-        var read         = this.state.readClassName
-        var theState     = (read.includes("selected") ? read.slice(0, -9) : read + " selected")
-        //var checkedState = this.state.checked ? false : true
+        //  get the className of the current class
+        var currentClassName = document.getElementById("message" + this.props.message.id).className
 
-        //  Set the state of the existing div class name and checkbox status
-        this.setState({
-            'readClassName': theState,
-            //'checked'      : checkedState
-        })
+        //  if it is selected classname will have "selected" in it.  In that case remove it
+        //  if not, add " selected" to className
+        var toggledClassName = (currentClassName.includes("selected") ? currentClassName.slice(0, -9) : currentClassName + " selected")
+
+        //  update the className
+        document.getElementById("message" + this.props.message.id).className = toggledClassName;
+
+        //  checkbox was clicked, so toggle the checked property of the message
+        var theMessage = this.props.message
+        theMessage.checked = this.props.message.checked === true ? false : true
+        //selectedMessages[theIndex].checked = selectedMessages[theIndex].checked === true ? false : true
 
         //callback, pass message
-        this.props.callbackFromParent(this.props.message.id)
-
+        this.props.callbackFromParent(theMessage)
     }
 
     //  Toggle the className when the star is clicked
@@ -85,15 +73,23 @@ class Message extends React.Component {
 
 
     render () {
+      //  build the message (<tr>) className based on characteristics of the message
+      var readClassName = "row message"
+      readClassName += (this.props.message.read    ? " read"     : " unread")
+      readClassName += (this.props.message.checked ? " selected" : "")
+
+      var starredClassName =  this.props.message.starred ? "star fa fa-star"  : "star fa fa-star-o"
+      var messageChecked   =  this.props.message.checked
+
       return (
-        <div className={this.state.readClassName }>
+        <div id={ "message" + this.props.message.id } className={ readClassName }>
           <div className="col-xs-1">
             <div className="row">
               <div className="col-xs-2">
-                <input type="checkbox" checked={ this.state.messageChecked } onClick={ this.handleMessageCheckboxClick } />
+                <input type="checkbox" checked={ messageChecked } onClick={ this.handleMessageCheckboxClick } />
               </div>
               <div className="col-xs-2">
-                <i className={ this.state.starredClassName } onClick={ this.handleStarClick }></i>
+                <i className={ starredClassName } onClick={ this.handleStarClick }></i>
               </div>
             </div>
           </div>
@@ -104,8 +100,22 @@ class Message extends React.Component {
         </div>
       )}
 }
+//         <div className={this.state.readClassName }>
 
-export default Message
+const mapStateToProps = state => ({
+  //messages: state.messages,
+})
+
+const mapDispatchToProps = dispatch => bindActionCreators({
+//  messageAdded: createMessage,
+  callbackFromParent: messageSelectToggled,
+}, dispatch)
+
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(Message)
 
 
 //console.log(JSON.stringify(messages))

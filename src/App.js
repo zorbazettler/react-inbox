@@ -17,7 +17,7 @@ class App extends Component {
         this.callbackFromToolBarRemoveLabel         = this.callbackFromToolBarRemoveLabel.bind(this)
         this.callbackFromToolBarDeleteMessages      = this.callbackFromToolBarDeleteMessages.bind(this)
         this.callbackFromMessageListHandleStarClick = this.callbackFromMessageListHandleStarClick.bind(this)
-        this.callbackFromToolBarAddMessage          = this.callbackFromToolBarAddMessage.bind(this)
+        //this.callbackFromToolBarAddMessage          = this.callbackFromToolBarAddMessage.bind(this)
 
         //  Initialize state
         this.state = {
@@ -27,21 +27,6 @@ class App extends Component {
         }
     }
 
-/*
-    //  When component mounts make REST call to get the messages
-    //  this is now MESSAGES_RECEIVED
-    componentDidMount = async () => {
-        //const response = await fetch(`${process.env.REACT_APP_API_URL}/api/products`)
-        const response = await fetch("/api/messages")
-        const json = await response.json()
-
-        //  set state with the response data
-        this.setState({
-            "messages"           : json._embedded.messages,
-            "unreadMessageCount" : (json._embedded.messages.filter(message => message.read === false)).length
-        })
-    }
-*/
     //  The ToolBar's select/deselect all button was clicked
     callbackFromToolBarToggleSelect = () => {
         var checkedMessages   = this.state.messages.filter(message => message.checked === true)
@@ -251,34 +236,6 @@ class App extends Component {
 
         console.log(theResponse ? "it worked!" : "there was a problem")
     }
-
-    callbackFromToolBarAddMessage = async(theSubject, theBody) => {
-        console.log("wired up the form to app.js" + theSubject + theBody)
-
-        var apiMessage = {
-            "subject" : theSubject,
-            "body"    : theBody,
-        }
-
-        const response = await fetch('/api/messages/', {
-                  method: 'POST',
-                  body: JSON.stringify(apiMessage),
-                  headers: {
-                    'Content-Type': 'application/json',
-                    'Accept': 'application/json',
-                  }
-                })
-
-        const returnMessage = await response.json()
-        var theMessages = this.state.messages
-        theMessages.push(returnMessage)
-        console.log(" returnMessage = " + JSON.stringify(returnMessage, null, 4))
-        console.log("theMessages = " + JSON.stringify(theMessages, null, 4))
-        this.setState({
-            "messages" : theMessages
-        })
-    }
-
   render() {
     return (
         <div>
@@ -289,15 +246,13 @@ class App extends Component {
             callbackFromTooBarApplyLabel={ this.callbackFromTooBarApplyLabel }
             callbackFromToolBarRemoveLabel={ this.callbackFromToolBarRemoveLabel }
             callbackFromToolBarDeleteMessages={ this.callbackFromToolBarDeleteMessages }
-            callbackFromToolBarAddMessage={ this.callbackFromToolBarAddMessage }
             unreadMessageCount={ this.state.unreadMessageCount }
-            messages={ this.state.messages } />
+          />
 
           <MessageList
             callbackFromParent={ this.callbackFromMessageCheckClicked }
             callbackFromMessageListHandleStarClick={ this.callbackFromMessageListHandleStarClick }
-            messages={ this.props.messages.all }
-            />
+          />
         </div>
     )
   }
@@ -314,6 +269,5 @@ export default connect(
   mapDispatchToProps
 )(App)
 
-//export default App;
 
 

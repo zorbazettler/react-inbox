@@ -1,7 +1,9 @@
 import React from 'react'
+//import store from '../store';
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux'
+import { createMessage } from '../actions'
 
-//const ToolBar = (props) => {
-//const MessageList = ({messages}) => {
 class ToolBar extends React.Component {
     constructor (props) {
         super(props);
@@ -14,23 +16,31 @@ class ToolBar extends React.Component {
         this.handleFormSubmit        = this.handleFormSubmit.bind(this)
 
         this.state = {
-            "messages"                 : this.props.messages,
-            "selectAllButtonClassName" : this.props.buttonClassName,
+//            "messages"                 : this.props.messages,
+//            "selectAllButtonClassName" : this.props.buttonClassName,
             "formDisplay"              : false
         }
     }
 
     // Props changed, so prepare to render the message
     componentWillReceiveProps(nextProps) {
-        this.setState({"selectAllButtonClassName": this.props.buttonClassName})
+        //this.setState({"selectAllButtonClassName": this.props.buttonClassName})
     }
 
     handleComposeClick = () => {
         this.setState({"formDisplay": this.state.formDisplay ? false : true})
     }
 
-    handleFormSubmit = (subject, body) => {
-        this.props.callbackFromToolBarAddMessage(subject, body)
+    handleFormSubmit = (subject, body, messageAdded) => {
+//    handleFormSubmit = () => {
+        //this.props.callbackFromToolBarAddMessage(subject, body)
+        var apiMessage = {
+            "subject" : subject,
+            "body"    : body,
+        }
+
+        //store.dispatch(createMessage(apiMessage))
+        this.props.createMessage(apiMessage)
 
         this.setState({"formDisplay": false})
     }
@@ -72,7 +82,28 @@ class ToolBar extends React.Component {
     }
 
     render() {
+        var theButtonClassName = "fa fa-minus-square-o"
+        var selectedMessages = this.props.messages.all
+//console.log("msgs " + JSON.stringify(selectedMessages, null, 4))
+
+        if (selectedMessages.length !== undefined) {
+            //  determine checked button className
+            //  create an array of all messages that are checked and unchecked
+            var checkedMessages   = selectedMessages.filter(message => message.checked === true)
+            var unCheckedMessages = selectedMessages.filter(message => message.checked === false)
+
+            //  Set the button class name if all or no messages checked
+            if (checkedMessages.length === 0) {
+                //  No messages checked
+                theButtonClassName = "fa fa-square-o"
+            } else if (unCheckedMessages.length === 0) {
+                //  All messages checked
+                theButtonClassName = "fa fa-check-square-o"
+            }
+        }
+
         return (
+        (selectedMessages.length !== undefined && this.props.messages.all.length !== undefined) ? (
             <div className="row toolbar">
               <div className="col-md-12">
                 <p className="pull-right">
@@ -84,7 +115,7 @@ class ToolBar extends React.Component {
                   <i className="fa fa-plus"></i>
                 </a>
                 <button className="btn btn-default" onClick={ this.handleSelectAllClick }>
-                  <i className={ this.props.buttonClassName }></i>
+                  <i className={ theButtonClassName }></i>
                 </button>
 
                 <button className="btn btn-default" onClick={ this.handleMarkAsReadClick }>
@@ -115,6 +146,7 @@ class ToolBar extends React.Component {
               </div>
                 { this.state.formDisplay ? <TheForm callbackFromToolBarAddMessage={ this.handleFormSubmit } /> : null }
             </div>
+             ) : (<div>Loading...</div>)
         )
     }
 }
@@ -128,11 +160,12 @@ class TheForm extends React.Component {
     }
 
     //  gather the subject & body then call to ToolBar
-    handleFormSubmit = (subject, body) => {
+    handleFormSubmit = (e, messageAdded) => {
+        e.preventDefault()
         var subject = document.getElementById("subject").value
         var body    = document.getElementById("body").value
 
-        this.props.callbackFromToolBarAddMessage(subject, body)
+        this.props.callbackFromToolBarAddMessage(subject, body, messageAdded)
     }
 
 render() {
@@ -164,28 +197,18 @@ render() {
     )}
 }
 
-export default ToolBar
+const mapStateToProps = state => ({
+  messages: state.messages,
+})
 
-/*
-                <button className="btn btn-default" disabled="disabled">
+const mapDispatchToProps = dispatch => bindActionCreators({
+//  messageAdded: createMessage,
+  createMessage,
+}, dispatch)
 
-App
-<Calculator>
-    handleCelsiusChange
-        setState
-    handleFarenheitChange
-        setState
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(ToolBar)
 
-    render()
-        <TemperatureInput onTemperatureChange=this.handleCelsiusChange>
-        <TemperatureInput onTemperatureChange=this.handleFarenheitChange>
-</Calculator>
 
-toolbar and messageList
-<TemperatureInput>
-    handleChange(e)
-        this.props.onTemperatureChange(e.target.value)
-
-    <input onChange={this.handleChange} />
-
-*/

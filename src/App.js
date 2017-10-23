@@ -11,12 +11,12 @@ class App extends Component {
 
         // bind the callback method to the proper context TODO: research to fully understand this
         this.callbackFromToolBarToggleSelect        = this.callbackFromToolBarToggleSelect.bind(this)
-        this.callbackFromMessageCheckClicked        = this.callbackFromMessageCheckClicked.bind(this)
+        //this.callbackFromMessageCheckClicked        = this.callbackFromMessageCheckClicked.bind(this)
         this.callbackFromToolBarToggleRead          = this.callbackFromToolBarToggleRead.bind(this)
         this.callbackFromTooBarApplyLabel           = this.callbackFromTooBarApplyLabel.bind(this)
         this.callbackFromToolBarRemoveLabel         = this.callbackFromToolBarRemoveLabel.bind(this)
         this.callbackFromToolBarDeleteMessages      = this.callbackFromToolBarDeleteMessages.bind(this)
-        this.callbackFromMessageListHandleStarClick = this.callbackFromMessageListHandleStarClick.bind(this)
+        //this.callbackFromMessageListHandleStarClick = this.callbackFromMessageListHandleStarClick.bind(this)
         //this.callbackFromToolBarAddMessage          = this.callbackFromToolBarAddMessage.bind(this)
 
         //  Initialize state
@@ -59,7 +59,7 @@ class App extends Component {
     }
 
     //  a message was checked/clicked, set the state to re render
-    callbackFromMessageCheckClicked = (theID) => {
+/*    callbackFromMessageCheckClicked = (theID) => {
         var theButtonClassName = "fa fa-minus-square-o"
         var selectedMessages = this.state.messages
 
@@ -91,7 +91,7 @@ class App extends Component {
             "messages"              : selectedMessages
         })
     }
-
+*/
     //  Mark As Read or MarkAsUnread button clicked in Toolbar
     //  if readStatus ==  true then Mark As Read clicked if false Mark As Unread clicked
     callbackFromToolBarToggleRead = (readStatus) => {
@@ -209,6 +209,7 @@ class App extends Component {
         this.saveMessage(apiMessage)
     }
 
+/*
     callbackFromMessageListHandleStarClick = (messageID, isStarred) => {
         var apiMessage = {
             "messageIds" : [ messageID ],
@@ -218,7 +219,7 @@ class App extends Component {
 
         this.saveMessage(apiMessage)
     }
-
+*/
     saveMessage = async(message) => {
         console.log("message = " + JSON.stringify(message, null, 4))
 
@@ -241,7 +242,7 @@ class App extends Component {
         <div>
           <ToolBar
             buttonClassName={ this.state.selectButtonClassName }
-            callbackFromParent={ this.callbackFromToolBarToggleSelect }
+            //callbackFromParent={ this.callbackFromToolBarToggleSelect }
             callbackFromToolBarToggleRead={ this.callbackFromToolBarToggleRead }
             callbackFromTooBarApplyLabel={ this.callbackFromTooBarApplyLabel }
             callbackFromToolBarRemoveLabel={ this.callbackFromToolBarRemoveLabel }
@@ -249,9 +250,7 @@ class App extends Component {
             unreadMessageCount={ this.state.unreadMessageCount }
           />
 
-          <MessageList
-            callbackFromParent={ this.callbackFromMessageCheckClicked }
-          />
+          <MessageList />
         </div>
     )
   }

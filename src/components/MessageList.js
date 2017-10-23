@@ -10,12 +10,12 @@ class MessageList extends React.Component {
 
         // bind the event handlers to the appropriate context
         //this.handleMessageCheckboxClick  = this.handleMessageCheckboxClick.bind(this)
-        this.handleStarClick             = this.handleStarClick.bind(this)
+        //this.handleStarClick             = this.handleStarClick.bind(this)
     }
 
-    handleStarClick = (messageID, isStarred) => {
-        this.props.callbackFromMessageListHandleStarClick(messageID, isStarred)
-    }
+    //handleStarClick = (messageID, isStarred) => {
+     //   this.props.callbackFromMessageListHandleStarClick(messageID, isStarred)
+    //}
     render () {
         return (
               ( this.props.messages.all.length !== undefined) ? (
@@ -24,7 +24,8 @@ class MessageList extends React.Component {
                     this.props.messages.all.map(message => <Message
                     key={ message.id }
                     message={ message }
-                    callbackFromMessageListHandleStarClick={ this.handleStarClick } />) }
+                    //callbackFromMessageListHandleStarClick={ this.handleStarClick }
+                    />) }
                 </div>
               ) : (<div>Loading the message list...</div>)
         )

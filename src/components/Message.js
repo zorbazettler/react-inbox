@@ -15,8 +15,8 @@ class Message extends React.Component {
         super(props)
 
         // bind the event handlers to the appropriate context
-        this.handleMessageCheckboxClick  = this.handleMessageCheckboxClick.bind(this)
-        this.handleStarClick = this.handleStarClick.bind(this)
+        //this.handleMessageCheckboxClick  = this.handleMessageCheckboxClick.bind(this)
+        //this.handleStarClick = this.handleStarClick.bind(this)
     }
 
 

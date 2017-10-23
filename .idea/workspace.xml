@@ -3,11 +3,8 @@
   <component name="ChangeListManager">
     <list default="true" id="8feedc32-1396-446f-9306-222ca64eea13" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/App.js" afterPath="$PROJECT_DIR$/src/App.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/actions/index.js" afterPath="$PROJECT_DIR$/src/actions/index.js" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/components/Message.js" afterPath="$PROJECT_DIR$/src/components/Message.js" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/components/MessageList.js" afterPath="$PROJECT_DIR$/src/components/MessageList.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/components/ToolBar.js" afterPath="$PROJECT_DIR$/src/components/ToolBar.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/reducers/index.js" afterPath="$PROJECT_DIR$/src/reducers/index.js" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -29,11 +26,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="App.js" pinned="false" current-in-tab="false">
+      <file leaf-file-name="App.js" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/App.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="260">
-              <caret line="211" column="4" lean-forward="false" selection-start-line="211" selection-start-column="4" selection-end-line="211" selection-end-column="4" />
+            <state relative-caret-position="1545">
+              <caret line="108" column="11" lean-forward="true" selection-start-line="108" selection-start-column="11" selection-end-line="108" selection-end-column="11" />
               <folding />
             </state>
           </provider>
@@ -52,18 +49,18 @@
       <file leaf-file-name="MessageList.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/components/MessageList.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="226">
-              <caret line="16" column="57" lean-forward="false" selection-start-line="16" selection-start-column="19" selection-end-line="16" selection-end-column="57" />
+            <state relative-caret-position="390">
+              <caret line="26" column="22" lean-forward="false" selection-start-line="26" selection-start-column="22" selection-end-line="26" selection-end-column="22" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="Message.js" pinned="false" current-in-tab="true">
+      <file leaf-file-name="Message.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/components/Message.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="20">
-              <caret line="11" column="0" lean-forward="false" selection-start-line="11" selection-start-column="0" selection-end-line="11" selection-end-column="0" />
+            <state relative-caret-position="511">
+              <caret line="103" column="40" lean-forward="false" selection-start-line="103" selection-start-column="2" selection-end-line="103" selection-end-column="40" />
               <folding />
             </state>
           </provider>
@@ -72,7 +69,7 @@
       <file leaf-file-name="index.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/reducers/index.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="331">
+            <state relative-caret-position="357">
               <caret line="27" column="0" lean-forward="true" selection-start-line="27" selection-start-column="0" selection-end-line="27" selection-end-column="0" />
               <folding />
             </state>
@@ -82,8 +79,8 @@
       <file leaf-file-name="index.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/actions/index.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="196">
-              <caret line="50" column="27" lean-forward="true" selection-start-line="50" selection-start-column="27" selection-end-line="50" selection-end-column="27" />
+            <state relative-caret-position="260">
+              <caret line="46" column="0" lean-forward="false" selection-start-line="46" selection-start-column="0" selection-end-line="46" selection-end-column="0" />
               <folding />
             </state>
           </provider>
@@ -93,9 +90,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>check</find>
-      <find>checke</find>
-      <find>.</find>
       <find>.checke</find>
       <find>checked</find>
       <find>createMessage</find>
@@ -111,7 +105,6 @@
       <find>props</find>
       <find>console.log</find>
       <find>deb</find>
-      <find>messageSelectToggled</find>
       <find>.map</find>
       <find>map</find>
       <find>f</find>
@@ -122,7 +115,11 @@
       <find>debugg</find>
       <find>debugger</find>
       <find>unreadMessageCount</find>
+      <find>messageSelectToggled</find>
+      <find>select</find>
       <find>callbackFromMessageListHandleStarClick</find>
+      <find>starcl</find>
+      <find>callbackFromMessageCheckClicked</find>
     </findStrings>
     <dirStrings>
       <dir>$PROJECT_DIR$/src</dir>
@@ -148,11 +145,11 @@
         <option value="$PROJECT_DIR$/src/store.js" />
         <option value="$PROJECT_DIR$/src/index.js" />
         <option value="$PROJECT_DIR$/src/actions/index.js" />
-        <option value="$PROJECT_DIR$/src/App.js" />
         <option value="$PROJECT_DIR$/src/components/ToolBar.js" />
-        <option value="$PROJECT_DIR$/src/components/MessageList.js" />
         <option value="$PROJECT_DIR$/src/reducers/index.js" />
         <option value="$PROJECT_DIR$/src/components/Message.js" />
+        <option value="$PROJECT_DIR$/src/components/MessageList.js" />
+        <option value="$PROJECT_DIR$/src/App.js" />
       </list>
     </option>
   </component>
@@ -632,18 +629,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/actions/index.js">
+    <entry file="file://$PROJECT_DIR$/src/components/ToolBar.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="196">
-          <caret line="50" column="27" lean-forward="true" selection-start-line="50" selection-start-column="27" selection-end-line="50" selection-end-column="27" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/reducers/index.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="331">
-          <caret line="27" column="0" lean-forward="true" selection-start-line="27" selection-start-column="0" selection-end-line="27" selection-end-column="0" />
+        <state relative-caret-position="-127">
+          <caret line="108" column="61" lean-forward="false" selection-start-line="108" selection-start-column="61" selection-end-line="108" selection-end-column="61" />
           <folding />
         </state>
       </provider>
@@ -656,34 +645,42 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/components/ToolBar.js">
+    <entry file="file://$PROJECT_DIR$/src/actions/index.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-127">
-          <caret line="108" column="61" lean-forward="false" selection-start-line="108" selection-start-column="61" selection-end-line="108" selection-end-column="61" />
+        <state relative-caret-position="260">
+          <caret line="46" column="0" lean-forward="false" selection-start-line="46" selection-start-column="0" selection-end-line="46" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/reducers/index.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="357">
+          <caret line="27" column="0" lean-forward="true" selection-start-line="27" selection-start-column="0" selection-end-line="27" selection-end-column="0" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/components/MessageList.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="226">
-          <caret line="16" column="57" lean-forward="false" selection-start-line="16" selection-start-column="19" selection-end-line="16" selection-end-column="57" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/App.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="260">
-          <caret line="211" column="4" lean-forward="false" selection-start-line="211" selection-start-column="4" selection-end-line="211" selection-end-column="4" />
+        <state relative-caret-position="390">
+          <caret line="26" column="22" lean-forward="false" selection-start-line="26" selection-start-column="22" selection-end-line="26" selection-end-column="22" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/components/Message.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="20">
-          <caret line="11" column="0" lean-forward="false" selection-start-line="11" selection-start-column="0" selection-end-line="11" selection-end-column="0" />
+        <state relative-caret-position="511">
+          <caret line="103" column="40" lean-forward="false" selection-start-line="103" selection-start-column="2" selection-end-line="103" selection-end-column="40" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/App.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1545">
+          <caret line="108" column="11" lean-forward="true" selection-start-line="108" selection-start-column="11" selection-end-line="108" selection-end-column="11" />
           <folding />
         </state>
       </provider>

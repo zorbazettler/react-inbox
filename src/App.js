@@ -21,7 +21,7 @@ class App extends Component {
 
         //  Initialize state
         this.state = {
-            "messages"              : [],
+//            "messages"              : [],
             "selectButtonClassName" : "fa fa-minus-square-o",
             "unreadMessageCount"    : 0
         }
@@ -251,15 +251,15 @@ class App extends Component {
 
           <MessageList
             callbackFromParent={ this.callbackFromMessageCheckClicked }
-            callbackFromMessageListHandleStarClick={ this.callbackFromMessageListHandleStarClick }
           />
         </div>
     )
   }
 }
+//            callbackFromMessageListHandleStarClick={ this.callbackFromMessageListHandleStarClick }
 
 const mapStateToProps = state => ({
-  messages: state.messages,
+  //messages: state.messages,
 })
 
 const mapDispatchToProps = () => ({})

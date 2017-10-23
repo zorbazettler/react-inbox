@@ -13,21 +13,9 @@ class MessageList extends React.Component {
         this.handleStarClick             = this.handleStarClick.bind(this)
     }
 
-    //  This method invoked from Message component when a checkbox is clicked
-    //  Pass the messageID to App who will manage propagation to source of truth
-    //    and re rendering Toolbar (button style)
-//    handleMessageCheckboxClick = (messageID) => {
-//        this.props.callbackFromParent(messageID)
-//    }
-
-    // Props changed, so prepare to render the message
-    componentWillReceiveProps(nextProps) {
-    }
-
     handleStarClick = (messageID, isStarred) => {
         this.props.callbackFromMessageListHandleStarClick(messageID, isStarred)
     }
-
     render () {
         return (
               ( this.props.messages.all.length !== undefined) ? (
@@ -38,7 +26,7 @@ class MessageList extends React.Component {
                     message={ message }
                     callbackFromMessageListHandleStarClick={ this.handleStarClick } />) }
                 </div>
-              ) : (<div>Loading...</div>)
+              ) : (<div>Loading the message list...</div>)
         )
     }
 }

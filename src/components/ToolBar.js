@@ -1,5 +1,4 @@
 import React from 'react'
-//import store from '../store';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux'
 import { createMessage } from '../actions'
@@ -146,7 +145,7 @@ class ToolBar extends React.Component {
               </div>
                 { this.state.formDisplay ? <TheForm callbackFromToolBarAddMessage={ this.handleFormSubmit } /> : null }
             </div>
-             ) : (<div>Loading...</div>)
+             ) : (<div>Loading the toolbar...</div>)
         )
     }
 }

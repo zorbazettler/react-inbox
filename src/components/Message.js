@@ -13,10 +13,6 @@ class Message extends React.Component {
     constructor(props) {
         //  Must call super(props)
         super(props)
-
-        // bind the event handlers to the appropriate context
-        //this.handleMessageCheckboxClick  = this.handleMessageCheckboxClick.bind(this)
-        //this.handleStarClick = this.handleStarClick.bind(this)
     }
 
 
@@ -38,7 +34,7 @@ class Message extends React.Component {
         theMessage.checked = this.props.message.checked === true ? false : true
 
         //callback, pass message
-        this.props.callbackFromParent(theMessage)
+        this.props.handleSelectToggled(theMessage)
     }
 
     //  Toggle the className when the star is clicked
@@ -57,11 +53,12 @@ class Message extends React.Component {
         theMessage.starred = this.props.message.starred === true ? false : true
 
         //  Call back to parent
-        //this.props.callbackFromMessageListHandleStarClick(this.props.message.id, isStarred)
-        this.props.callbackFromMessageListHandleStarClick(theMessage)
+        this.props.handleStarClick(theMessage)
     }
 
     render () {
+      //var messageID = currentClassName.slice(0, -9)
+      //var theMessage = this.props.messages
       //  build the message (<tr>) className based on characteristics of the message
       var readClassName = "row message"
       readClassName += (this.props.message.read    ? " read"     : " unread")
@@ -69,7 +66,8 @@ class Message extends React.Component {
 
       var starredClassName =  this.props.message.starred ? "star fa fa-star"  : "star fa fa-star-o"
       var messageChecked   =  this.props.message.checked
-//debugger
+
+
       return (
         ( this.props.message !== undefined) ? (
             <div id={ "message" + this.props.message.id } className={ readClassName }>
@@ -92,16 +90,15 @@ class Message extends React.Component {
 
       )}
 }
-//         <div className={this.state.readClassName }>
 
 const mapStateToProps = state => ({
-  //messages: state.messages,
+  messages: state.messages.all,
 })
 
 const mapDispatchToProps = dispatch => bindActionCreators({
 //  messageAdded: createMessage,
-  callbackFromParent:                     messageSelectToggled,
-  callbackFromMessageListHandleStarClick: messageStarToggled
+  handleSelectToggled: messageSelectToggled,
+  handleStarClick:     messageStarToggled
 }, dispatch)
 
 

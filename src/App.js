@@ -10,88 +10,13 @@ class App extends Component {
         super(props);
 
         // bind the callback method to the proper context TODO: research to fully understand this
-        this.callbackFromToolBarToggleSelect        = this.callbackFromToolBarToggleSelect.bind(this)
-        //this.callbackFromMessageCheckClicked        = this.callbackFromMessageCheckClicked.bind(this)
-        this.callbackFromToolBarToggleRead          = this.callbackFromToolBarToggleRead.bind(this)
-        this.callbackFromTooBarApplyLabel           = this.callbackFromTooBarApplyLabel.bind(this)
-        this.callbackFromToolBarRemoveLabel         = this.callbackFromToolBarRemoveLabel.bind(this)
+        //this.callbackFromToolBarToggleSelect        = this.callbackFromToolBarToggleSelect.bind(this)
+        //this.callbackFromToolBarToggleRead          = this.callbackFromToolBarToggleRead.bind(this)
         this.callbackFromToolBarDeleteMessages      = this.callbackFromToolBarDeleteMessages.bind(this)
-        //this.callbackFromMessageListHandleStarClick = this.callbackFromMessageListHandleStarClick.bind(this)
-        //this.callbackFromToolBarAddMessage          = this.callbackFromToolBarAddMessage.bind(this)
 
-        //  Initialize state
-        this.state = {
-//            "messages"              : [],
-            "selectButtonClassName" : "fa fa-minus-square-o",
-            "unreadMessageCount"    : 0
-        }
     }
 
-    //  The ToolBar's select/deselect all button was clicked
-    callbackFromToolBarToggleSelect = () => {
-        var checkedMessages   = this.state.messages.filter(message => message.checked === true)
-        var selectedMessages  = []
-        var checkStatus
-        var theButtonClassName
-
-       //  If all of the messages are selected, unselect all
-        if (checkedMessages.length === this.state.messages.length) {
-            checkStatus = false
-            theButtonClassName = "fa fa-square-o"
-        } else {
-            //  select all
-            checkStatus = true
-            theButtonClassName = "fa fa-check-square-o"
-        }
-
-        //  set the checked property for all messages
-        this.state.messages.forEach(message => {
-          message.checked = checkStatus
-
-          selectedMessages.push(message)
-        })
-
-        //  Trigger a re-render of child components to reflect UI changes
-        this.setState({
-            "messages"  : selectedMessages,
-            "selectButtonClassName" : theButtonClassName,
-        })
-    }
-
-    //  a message was checked/clicked, set the state to re render
-/*    callbackFromMessageCheckClicked = (theID) => {
-        var theButtonClassName = "fa fa-minus-square-o"
-        var selectedMessages = this.state.messages
-
-        //  Find the message in the array by the input ID
-        var theIndex = selectedMessages.findIndex(message => message.id === theID)
-
-
-        //  checkbox was clicked, so toggle the checked property of the message
-        selectedMessages[theIndex].checked = selectedMessages[theIndex].checked === true ? false : true
-
-        //  determine checked button className
-        //  create an array of all messages that are checked and unchecked
-        var checkedMessages   = selectedMessages.filter(message => message.checked === true)
-        var unCheckedMessages = selectedMessages.filter(message => message.checked === false)
-
-        //  Set the button class name if all or no messages checked
-        if (checkedMessages.length === 0) {
-            //  No messages checked
-            theButtonClassName = "fa fa-square-o"
-        } else if (unCheckedMessages.length === 0) {
-            //  All messages checked
-            theButtonClassName = "fa fa-check-square-o"
-        }
-
-
-        //  set the state with button className to trigger a re render of the button
-        this.setState({
-            "selectButtonClassName" : theButtonClassName,
-            "messages"              : selectedMessages
-        })
-    }
-*/
+/*
     //  Mark As Read or MarkAsUnread button clicked in Toolbar
     //  if readStatus ==  true then Mark As Read clicked if false Mark As Unread clicked
     callbackFromToolBarToggleRead = (readStatus) => {
@@ -112,7 +37,7 @@ class App extends Component {
 
         this.setState({
             "messages"           : readMessages,
-            "unreadMessageCount" : (this.state.messages.filter(message => message.read === false)).length
+            //"unreadMessageCount" : (this.state.messages.filter(message => message.read === false)).length
         })
 
         var apiMessage = {
@@ -123,6 +48,7 @@ class App extends Component {
 
         this.saveMessage(apiMessage)
     }
+
 
     //  Apply Label button clicked in ToolBar
     callbackFromTooBarApplyLabel = (label) => {
@@ -167,7 +93,7 @@ class App extends Component {
         })
 
         this.setState({
-            "unreadMessageCount" : selectedMessages.length,
+            //"unreadMessageCount" : selectedMessages.length,
             "messages"           : selectedMessages
         })
 
@@ -179,7 +105,7 @@ class App extends Component {
 
         this.saveMessage(apiMessage)
     }
-
+*/
     callbackFromToolBarDeleteMessages = () => {
         var selectedMessages = []
         var messageIds       = []
@@ -198,7 +124,7 @@ class App extends Component {
 
         this.setState({
             "messages"           : selectedMessages,
-            "unreadMessageCount" : (selectedMessages.filter(message => message.read === false)).length
+            //"unreadMessageCount" : (selectedMessages.filter(message => message.read === false)).length
         })
 
         var apiMessage = {
@@ -209,17 +135,6 @@ class App extends Component {
         this.saveMessage(apiMessage)
     }
 
-/*
-    callbackFromMessageListHandleStarClick = (messageID, isStarred) => {
-        var apiMessage = {
-            "messageIds" : [ messageID ],
-            "command"    : "star",
-            "star"       : isStarred,
-        }
-
-        this.saveMessage(apiMessage)
-    }
-*/
     saveMessage = async(message) => {
         console.log("message = " + JSON.stringify(message, null, 4))
 
@@ -237,17 +152,12 @@ class App extends Component {
 
         console.log(theResponse ? "it worked!" : "there was a problem")
     }
+
   render() {
     return (
         <div>
           <ToolBar
-            buttonClassName={ this.state.selectButtonClassName }
-            //callbackFromParent={ this.callbackFromToolBarToggleSelect }
-            callbackFromToolBarToggleRead={ this.callbackFromToolBarToggleRead }
-            callbackFromTooBarApplyLabel={ this.callbackFromTooBarApplyLabel }
-            callbackFromToolBarRemoveLabel={ this.callbackFromToolBarRemoveLabel }
             callbackFromToolBarDeleteMessages={ this.callbackFromToolBarDeleteMessages }
-            unreadMessageCount={ this.state.unreadMessageCount }
           />
 
           <MessageList />
@@ -255,11 +165,12 @@ class App extends Component {
     )
   }
 }
-//            callbackFromMessageListHandleStarClick={ this.callbackFromMessageListHandleStarClick }
+//            callbackFromTooBarApplyLabel={ this.callbackFromTooBarApplyLabel }
+//            callbackFromToolBarRemoveLabel={ this.callbackFromToolBarRemoveLabel }
 
-const mapStateToProps = state => ({
-  //messages: state.messages,
-})
+
+
+const mapStateToProps = state => ({})
 
 const mapDispatchToProps = () => ({})
 

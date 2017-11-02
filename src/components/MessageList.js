@@ -7,35 +7,27 @@ class MessageList extends React.Component {
     constructor(props) {
         //  Must call super(props)
         super(props)
-
-        // bind the event handlers to the appropriate context
-        //this.handleMessageCheckboxClick  = this.handleMessageCheckboxClick.bind(this)
-        //this.handleStarClick             = this.handleStarClick.bind(this)
     }
 
-    //handleStarClick = (messageID, isStarred) => {
-     //   this.props.callbackFromMessageListHandleStarClick(messageID, isStarred)
-    //}
     render () {
+    //debugger
         return (
-              ( this.props.messages.all.length !== undefined) ? (
+              ( this.props.messages.length !== undefined) ? (
                 <div>
                   {
-                    this.props.messages.all.map(message => <Message
-                    key={ message.id }
-                    message={ message }
-                    //callbackFromMessageListHandleStarClick={ this.handleStarClick }
-                    />) }
+                    this.props.messages.map(message =>
+                        <Message key={ message.id } message={ message } />
+                    ) }
                 </div>
               ) : (<div>Loading the message list...</div>)
         )
     }
 }
 
-//  callbackFromParent={ this.handleMessageCheckboxClick }
 
-const mapStateToProps = state => ({
-  messages: state.messages,
+const mapStateToProps = (state) => ({
+  messages: state.messages.all,
+  unreadMessageCount: state.messages.unreadMessageCount,
 })
 
 const mapDispatchToProps = () => ({})

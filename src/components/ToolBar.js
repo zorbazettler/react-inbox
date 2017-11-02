@@ -1,7 +1,11 @@
 import React from 'react'
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux'
-import { createMessage } from '../actions'
+import { createMessage,
+         messagesSelectAllToggled,
+         messagesMarkAsReadToggled,
+         messagesApplyLabel,
+         messagesDelete } from '../actions'
 
 class ToolBar extends React.Component {
     constructor (props) {
@@ -15,9 +19,7 @@ class ToolBar extends React.Component {
         this.handleFormSubmit        = this.handleFormSubmit.bind(this)
 
         this.state = {
-//            "messages"                 : this.props.messages,
-//            "selectAllButtonClassName" : this.props.buttonClassName,
-            "formDisplay"              : false
+            "formDisplay" : false,
         }
     }
 
@@ -31,8 +33,6 @@ class ToolBar extends React.Component {
     }
 
     handleFormSubmit = (subject, body, messageAdded) => {
-//    handleFormSubmit = () => {
-        //this.props.callbackFromToolBarAddMessage(subject, body)
         var apiMessage = {
             "subject" : subject,
             "body"    : body,
@@ -44,27 +44,73 @@ class ToolBar extends React.Component {
         this.setState({"formDisplay": false})
     }
 
-    //  When the select all button is clicked call back to App to change state and re render
+    //  The ToolBar's select/deselect all button was clicked
     handleSelectAllClick = () => {
-        this.props.callbackFromParent()
+        var checkedMessages   = this.props.messages.filter(message => message.checked === true)
+        var selectedMessages  = []
+        var checkStatus
+        var theButtonClassName
+
+       //  If all of the messages are selected, unselect all
+        //if (this.props.messages.length === 0) {
+        if (checkedMessages.length === this.props.messages.length) {
+            checkStatus = false
+            theButtonClassName = "fa fa-square-o"
+        } else {
+            //  select all
+            checkStatus = true
+            theButtonClassName = "fa fa-check-square-o"
+        }
+
+        //  set the checked property for all messages
+        this.props.messages.forEach(message => {
+          message.checked = checkStatus
+
+          selectedMessages.push(message)
+        })
+
+        this.props.toggleSelectAll(selectedMessages)
     }
 
-    //  When the Mark As Read button is clicked, call back to App to change state and re-render
+    //  the Mark As Read button is clicked
     handleMarkAsReadClick = () => {
-        this.props.callbackFromToolBarToggleRead(true)
+        //this.props.callbackFromToolBarToggleRead(true)
+        this.handleToggleMarkReadUnread(true)
     }
 
-    //  When the Mark As Unread button is clicked, call back to App to change state and re-render
+    //  the Mark As Unread button is clicked
     handleMarkAsUnreadClick = () => {
-        this.props.callbackFromToolBarToggleRead(false)
+        //this.props.callbackFromToolBarToggleRead(false)
+        this.handleToggleMarkReadUnread(false)
     }
+
+    handleToggleMarkReadUnread = (isRead) => {
+        var readMessages = []
+        var messageIds   = []
+
+        //  set the checked property for all selected messages
+        this.props.messages.forEach(message  => {
+            //  If message is checked, set the read boolean and
+            //  add to the array of checked messages
+            if (message.checked) {
+                message.read = isRead
+                messageIds.push(message.id)
+              }
+              readMessages.push(message)
+        })
+
+        this.props.callbackFromToolBarToggleRead(messageIds, isRead, readMessages)
+    }
+
 
     //  When the Add Label button is clicked
     //  call back to App to administer, change state and re-render
     handleApplyLabelClick = () => {
         var sel = document.getElementById("applyLabelSelect")
 
-        this.props.callbackFromTooBarApplyLabel(sel.options[sel.selectedIndex].value)
+//        this.props.callbackFromTooBarApplyLabel(sel.options[sel.selectedIndex].value)
+        this.administerLabel(sel.options[sel.selectedIndex].value, true)
+
     }
 
     //  When the Remove Label button is clicked
@@ -72,37 +118,84 @@ class ToolBar extends React.Component {
     handleRemoveLabelClick = () => {
         var sel = document.getElementById("removeLabelSelect")
 
+        //this.props.callbackFromToolBarRemoveLabel(sel.options[sel.selectedIndex].value)
+        this.administerLabel(sel.options[sel.selectedIndex].value, false)
+    }
 
-        this.props.callbackFromToolBarRemoveLabel(sel.options[sel.selectedIndex].value)
+    administerLabel = (theLabel, addLabel) => {
+        var selectedMessages = []
+        var messageIds       = []
+
+        //  Loop through the messages.  If checked then administer
+        //
+        //  if addLabel === true  then add if it doesn't already exist
+        //  if addLabel === false then remove if it does exist already
+        this.props.messages.forEach(message => {
+
+          //    Message is selected
+          if (message.checked) {
+              messageIds.push(message.id)
+
+              var labelIndex = message.labels.indexOf(theLabel)
+
+              if (addLabel && labelIndex === -1) {
+                //  Adding label and message and does not have the label, add label
+                message.labels.push(theLabel)
+
+              } else if (!addLabel && labelIndex !== -1) {
+                //  Removing label and message and does have the label, remove label
+                message.labels.splice(labelIndex, 1)
+              }
+          }
+
+          selectedMessages.push(message)
+        })
+
+        this.props.callbackFromTooBarApplyLabel(messageIds, theLabel, addLabel, selectedMessages)
     }
 
     handleDeleteClick = () => {
-        this.props.callbackFromToolBarDeleteMessages()
+        var selectedMessages = []
+        var messageIds       = []
+
+        //  set the checked property for all selected messages
+        this.props.messages.forEach(message  => {
+
+        if (message.checked) {
+            //  remove it
+            messageIds.push(message.id)
+
+          } else {
+            selectedMessages.push(message)
+          }
+        })
+
+        this.props.callbackFromToolBarDeleteMessages(messageIds, selectedMessages)
     }
 
     render() {
         var theButtonClassName = "fa fa-minus-square-o"
-        var selectedMessages = this.props.messages.all
-//console.log("msgs " + JSON.stringify(selectedMessages, null, 4))
+        var selectedMessages = this.props.messages
 
         if (selectedMessages.length !== undefined) {
             //  determine checked button className
             //  create an array of all messages that are checked and unchecked
-            var checkedMessages   = selectedMessages.filter(message => message.checked === true)
-            var unCheckedMessages = selectedMessages.filter(message => message.checked === false)
+            var numCheckedMessages   = selectedMessages.filter(message => message.checked === true).length
+            var numUncheckedMessages = (selectedMessages.length - numCheckedMessages)
+            //var unCheckedMessages = selectedMessages.filter(message => message.checked === false)
 
             //  Set the button class name if all or no messages checked
-            if (checkedMessages.length === 0) {
+            if (numCheckedMessages === 0) {
                 //  No messages checked
                 theButtonClassName = "fa fa-square-o"
-            } else if (unCheckedMessages.length === 0) {
+            } else if (numUncheckedMessages === 0) {
                 //  All messages checked
                 theButtonClassName = "fa fa-check-square-o"
             }
         }
 
         return (
-        (selectedMessages.length !== undefined && this.props.messages.all.length !== undefined) ? (
+        (selectedMessages.length !== undefined && this.props.messages.length !== undefined) ? (
             <div className="row toolbar">
               <div className="col-md-12">
                 <p className="pull-right">
@@ -197,12 +290,17 @@ render() {
 }
 
 const mapStateToProps = state => ({
-  messages: state.messages,
+  messages: state.messages.all,
+  unreadMessageCount: state.messages.unreadMessageCount,
 })
 
 const mapDispatchToProps = dispatch => bindActionCreators({
 //  messageAdded: createMessage,
-  createMessage,
+    toggleSelectAll:                   messagesSelectAllToggled,
+    callbackFromToolBarToggleRead:     messagesMarkAsReadToggled,
+    callbackFromTooBarApplyLabel:      messagesApplyLabel,
+    callbackFromToolBarDeleteMessages: messagesDelete,
+    createMessage,
 }, dispatch)
 
 export default connect(

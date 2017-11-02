@@ -2,14 +2,9 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="8feedc32-1396-446f-9306-222ca64eea13" name="Default" comment="">
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/reducers/appDomainObject.js" afterPath="" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/App.js" afterPath="$PROJECT_DIR$/src/App.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/actions/index.js" afterPath="$PROJECT_DIR$/src/actions/index.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/components/Message.js" afterPath="$PROJECT_DIR$/src/components/Message.js" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/components/MessageList.js" afterPath="$PROJECT_DIR$/src/components/MessageList.js" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/components/ToolBar.js" afterPath="$PROJECT_DIR$/src/components/ToolBar.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/reducers/index.js" afterPath="$PROJECT_DIR$/src/reducers/index.js" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -34,11 +29,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="App.js" pinned="false" current-in-tab="true">
+      <file leaf-file-name="App.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/App.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1905">
-              <caret line="127" column="10" lean-forward="true" selection-start-line="127" selection-start-column="10" selection-end-line="127" selection-end-column="10" />
+            <state relative-caret-position="180">
+              <caret line="12" column="19" lean-forward="false" selection-start-line="12" selection-start-column="19" selection-end-line="12" selection-end-column="19" />
               <folding />
             </state>
           </provider>
@@ -47,17 +42,17 @@
       <file leaf-file-name="ToolBar.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/components/ToolBar.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="525">
-              <caret line="35" column="0" lean-forward="false" selection-start-line="35" selection-start-column="0" selection-end-line="35" selection-end-column="0" />
+            <state relative-caret-position="2865">
+              <caret line="296" column="59" lean-forward="false" selection-start-line="296" selection-start-column="59" selection-end-line="296" selection-end-column="59" />
               <folding>
-                <element signature="e#0#11417#0" expanded="false" />
-                <element signature="e#0#11417#0" expanded="false" />
-                <element signature="e#0#11417#0" expanded="false" />
-                <element signature="e#0#11417#0" expanded="false" />
-                <element signature="e#0#11417#0" expanded="false" />
-                <element signature="e#0#11417#0" expanded="false" />
-                <element signature="e#0#11417#0" expanded="false" />
-                <element signature="e#0#11417#0" expanded="false" />
+                <element signature="e#0#11384#0" expanded="false" />
+                <element signature="e#0#11384#0" expanded="false" />
+                <element signature="e#0#11384#0" expanded="false" />
+                <element signature="e#0#11384#0" expanded="false" />
+                <element signature="e#0#11384#0" expanded="false" />
+                <element signature="e#0#11384#0" expanded="false" />
+                <element signature="e#0#11384#0" expanded="false" />
+                <element signature="e#0#11384#0" expanded="false" />
               </folding>
             </state>
           </provider>
@@ -66,8 +61,8 @@
       <file leaf-file-name="MessageList.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/components/MessageList.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="270">
-              <caret line="18" column="48" lean-forward="false" selection-start-line="18" selection-start-column="48" selection-end-line="18" selection-end-column="48" />
+            <state relative-caret-position="165">
+              <caret line="11" column="15" lean-forward="false" selection-start-line="11" selection-start-column="15" selection-end-line="11" selection-end-column="15" />
               <folding />
             </state>
           </provider>
@@ -76,7 +71,7 @@
       <file leaf-file-name="Message.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/components/Message.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="798">
+            <state relative-caret-position="1410">
               <caret line="94" column="2" lean-forward="false" selection-start-line="94" selection-start-column="2" selection-end-line="94" selection-end-column="2" />
               <folding />
             </state>
@@ -93,12 +88,15 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="index.js" pinned="false" current-in-tab="false">
+      <file leaf-file-name="index.js" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/actions/index.js">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="210">
               <caret line="25" column="16" lean-forward="false" selection-start-line="25" selection-start-column="16" selection-end-line="25" selection-end-column="16" />
               <folding>
+                <element signature="e#0#5927#0" expanded="false" />
+                <element signature="e#0#5927#0" expanded="false" />
+                <element signature="e#0#5927#0" expanded="false" />
                 <element signature="e#0#5927#0" expanded="false" />
                 <element signature="e#0#5927#0" expanded="false" />
                 <element signature="e#0#5927#0" expanded="false" />
@@ -113,7 +111,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>callbackFromTooBarApplyLabel</find>
       <find>this.props.mess</find>
       <find>messages</find>
       <find>adminstermessave</find>
@@ -143,6 +140,7 @@
       <find>createmess</find>
       <find>createmessage</find>
       <find>handleFormSubmit</find>
+      <find>callbackFromToolBarDeleteMessages</find>
     </findStrings>
     <dirStrings>
       <dir>$PROJECT_DIR$/src</dir>
@@ -169,11 +167,11 @@
         <option value="$PROJECT_DIR$/src/components/Messages.js" />
         <option value="$PROJECT_DIR$/src/components/Message.js" />
         <option value="$PROJECT_DIR$/src/reducers/appDomainObject.js" />
-        <option value="$PROJECT_DIR$/src/components/MessageList.js" />
-        <option value="$PROJECT_DIR$/src/App.js" />
         <option value="$PROJECT_DIR$/src/actions/index.js" />
         <option value="$PROJECT_DIR$/src/reducers/index.js" />
+        <option value="$PROJECT_DIR$/src/App.js" />
         <option value="$PROJECT_DIR$/src/components/ToolBar.js" />
+        <option value="$PROJECT_DIR$/src/components/MessageList.js" />
       </list>
     </option>
   </component>
@@ -652,14 +650,14 @@
         <state relative-caret-position="105">
           <caret line="7" column="0" lean-forward="true" selection-start-line="5" selection-start-column="4" selection-end-line="7" selection-end-column="0" />
           <folding>
-            <element signature="e#0#11417#0" expanded="false" />
-            <element signature="e#0#11417#0" expanded="false" />
-            <element signature="e#0#11417#0" expanded="false" />
-            <element signature="e#0#11417#0" expanded="false" />
-            <element signature="e#0#11417#0" expanded="false" />
-            <element signature="e#0#11417#0" expanded="false" />
-            <element signature="e#0#11417#0" expanded="false" />
-            <element signature="e#0#11417#0" expanded="false" />
+            <element signature="e#0#11384#0" expanded="false" />
+            <element signature="e#0#11384#0" expanded="false" />
+            <element signature="e#0#11384#0" expanded="false" />
+            <element signature="e#0#11384#0" expanded="false" />
+            <element signature="e#0#11384#0" expanded="false" />
+            <element signature="e#0#11384#0" expanded="false" />
+            <element signature="e#0#11384#0" expanded="false" />
+            <element signature="e#0#11384#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -715,18 +713,51 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/components/Message.js">
+    <entry file="file://$PROJECT_DIR$/src/index.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="798">
-          <caret line="94" column="2" lean-forward="false" selection-start-line="94" selection-start-column="2" selection-end-line="94" selection-end-column="2" />
+        <state relative-caret-position="300">
+          <caret line="20" column="2" lean-forward="false" selection-start-line="20" selection-start-column="2" selection-end-line="20" selection-end-column="2" />
           <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/App.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="180">
+          <caret line="12" column="19" lean-forward="false" selection-start-line="12" selection-start-column="19" selection-end-line="12" selection-end-column="19" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/components/ToolBar.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="2865">
+          <caret line="296" column="59" lean-forward="false" selection-start-line="296" selection-start-column="59" selection-end-line="296" selection-end-column="59" />
+          <folding>
+            <element signature="e#0#11384#0" expanded="false" />
+            <element signature="e#0#11384#0" expanded="false" />
+            <element signature="e#0#11384#0" expanded="false" />
+            <element signature="e#0#11384#0" expanded="false" />
+            <element signature="e#0#11384#0" expanded="false" />
+            <element signature="e#0#11384#0" expanded="false" />
+            <element signature="e#0#11384#0" expanded="false" />
+            <element signature="e#0#11384#0" expanded="false" />
+          </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/components/MessageList.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="270">
-          <caret line="18" column="48" lean-forward="false" selection-start-line="18" selection-start-column="48" selection-end-line="18" selection-end-column="48" />
+        <state relative-caret-position="165">
+          <caret line="11" column="15" lean-forward="false" selection-start-line="11" selection-start-column="15" selection-end-line="11" selection-end-column="15" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/components/Message.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1410">
+          <caret line="94" column="2" lean-forward="false" selection-start-line="94" selection-start-column="2" selection-end-line="94" selection-end-column="2" />
           <folding />
         </state>
       </provider>
@@ -749,40 +780,10 @@
             <element signature="e#0#5927#0" expanded="false" />
             <element signature="e#0#5927#0" expanded="false" />
             <element signature="e#0#5927#0" expanded="false" />
+            <element signature="e#0#5927#0" expanded="false" />
+            <element signature="e#0#5927#0" expanded="false" />
+            <element signature="e#0#5927#0" expanded="false" />
           </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/components/ToolBar.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="525">
-          <caret line="35" column="0" lean-forward="false" selection-start-line="35" selection-start-column="0" selection-end-line="35" selection-end-column="0" />
-          <folding>
-            <element signature="e#0#11417#0" expanded="false" />
-            <element signature="e#0#11417#0" expanded="false" />
-            <element signature="e#0#11417#0" expanded="false" />
-            <element signature="e#0#11417#0" expanded="false" />
-            <element signature="e#0#11417#0" expanded="false" />
-            <element signature="e#0#11417#0" expanded="false" />
-            <element signature="e#0#11417#0" expanded="false" />
-            <element signature="e#0#11417#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/index.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="300">
-          <caret line="20" column="2" lean-forward="false" selection-start-line="20" selection-start-column="2" selection-end-line="20" selection-end-column="2" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/App.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1905">
-          <caret line="127" column="10" lean-forward="true" selection-start-line="127" selection-start-column="10" selection-end-line="127" selection-end-column="10" />
-          <folding />
         </state>
       </provider>
     </entry>

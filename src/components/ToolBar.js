@@ -295,7 +295,6 @@ const mapStateToProps = state => ({
 })
 
 const mapDispatchToProps = dispatch => bindActionCreators({
-//  messageAdded: createMessage,
     toggleSelectAll:                   messagesSelectAllToggled,
     callbackFromToolBarToggleRead:     messagesMarkAsReadToggled,
     callbackFromTooBarApplyLabel:      messagesApplyLabel,

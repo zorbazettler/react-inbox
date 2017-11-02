@@ -10,7 +10,6 @@ class MessageList extends React.Component {
     }
 
     render () {
-    //debugger
         return (
               ( this.props.messages.length !== undefined) ? (
                 <div>
